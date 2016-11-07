@@ -2,11 +2,13 @@
 """
 Created on Sun Sep 18 20:57:47 2016
 
-@author: Sebastien, Oriol and Forrest
+@author: Sebastien, Oriol Forrest, and Hans
 NS Tweeter
 """
 # To instal a module run the following command from Command Prompt:
 # python -m pip install PACKAGE
+
+import util
 
 #%% NS API Information
 username = 'sebastienmoeller@gmail.com'
@@ -65,13 +67,13 @@ for child in root:
 #%% Get URL for station traffic information API
 urlstring = []
 for child in station_NL:
-    urlstring.append('http://webservices.ns.nl/ns-api-storingen?station=' + urlConv(child[0]))
+    urlstring.append('http://webservices.ns.nl/ns-api-storingen?station=' + util.urlConv(child[0]))
 
 #%% Extract what we want
 for i in range(10):
     url = urlstring[i]
     data_traffic = requests.get(url, auth=(username, password)).content
-    data_traffic = exRem(data_traffic)
+    data_traffic = util.exRem(data_traffic)
     data_traffic = ET.fromstring(data_traffic)
     
     unplanned = []
